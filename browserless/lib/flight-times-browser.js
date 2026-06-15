@@ -222,6 +222,7 @@ async function getBrowser() {
 }
 
 async function scrapeCityTimes(originSkyId, city, departDate, returnDate, maxPrice, opts = {}) {
+  if (process.env.VERCEL) return [];
   const directOnly = opts.directOnly !== false;
   const preferDirects = opts.preferDirects ?? directOnly;
   const pw = loadPlaywright();

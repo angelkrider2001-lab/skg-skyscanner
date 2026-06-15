@@ -341,11 +341,17 @@ async function startSearch() {
   setStatus(`Αναζήτηση Skyscanner για ${m.label}…`);
 
   try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 300000);
+
     const res = await fetch('/api/search', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      signal: controller.signal,
       body: JSON.stringify({ year: m.year, month: m.month }),
     });
+
+    clearTimeout(timeout);
 
     const data = await res.json();
     if (!res.ok) {
@@ -356,6 +362,31 @@ async function startSearch() {
     if (!isActiveSession(myGen)) return;
 
     activeJobId = jobId;
+
+    if (data.status === 'done' || data.status === 'error') {
+      currentJob = normalizeJob({
+        id: jobId,
+        year: m.year,
+        month: m.month,
+        ...data,
+      });
+      saveSession(currentJob, m.label, myGen);
+      if (data.status === 'done') {
+        progressFill.style.width = '100%';
+        renderResults(currentJob);
+        resultsSection.classList.remove('hidden');
+        setLoading(false);
+        progressBar.classList.add('hidden');
+        const skip = skippedPast ? ` · παράλειψη ${skippedPast} παρελθουσών` : '';
+        setStatus(`Ολοκληρώθηκε: ${currentJob.results?.length || 0} περίοδοι${skip}.`);
+      } else {
+        setStatus(data.error || 'Σφάλμα αναζήτησης', true);
+        setLoading(false);
+        progressBar.classList.add('hidden');
+      }
+      return;
+    }
+
     savePendingSearch({
       jobId,
       year: m.year,

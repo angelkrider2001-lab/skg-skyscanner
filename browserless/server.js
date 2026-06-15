@@ -94,6 +94,37 @@ app.post('/api/search', async (req, res) => {
     startedAt: new Date().toISOString(),
   });
 
+  if (process.env.VERCEL) {
+    try {
+      await runSearchJob(jobId, windows, skippedPast);
+      const job = searchJobs.get(jobId);
+      return res.json({
+        jobId,
+        total: windows.length,
+        skippedPast,
+        windows,
+        status: job?.status || 'error',
+        year,
+        month,
+        completed: job?.completed ?? 0,
+        results: job?.results ?? [],
+        summary: job?.summary ?? null,
+        origin: job?.origin,
+        error: job?.error ?? null,
+        detailsCache: job?.detailsCache ?? {},
+        detailsPrefetch: job?.detailsPrefetch ?? null,
+        finishedAt: job?.finishedAt,
+      });
+    } catch (err) {
+      const job = searchJobs.get(jobId);
+      if (job) {
+        job.status = 'error';
+        job.error = err.message;
+      }
+      return res.status(500).json({ error: err.message || 'Αποτυχία αναζήτησης' });
+    }
+  }
+
   res.json({ jobId, total: windows.length, skippedPast, windows });
 
   runSearchJob(jobId, windows, skippedPast).catch((err) => {
@@ -276,14 +307,29 @@ async function runSearchJob(jobId, windows, skippedPast) {
   job.detailsCache = {};
   job.detailsPrefetch = null;
 
-  prefetchSummaryDetails(job).catch((err) => {
-    if (job.cancelled) return;
-    console.error('Prefetch summary details:', err.message);
-    if (job.detailsPrefetch) {
-      job.detailsPrefetch.running = false;
-      job.detailsPrefetch.error = err.message;
-    }
-  });
+  if (process.env.VERCEL) {
+    skipPrefetchOnServerless(job);
+  } else {
+    prefetchSummaryDetails(job).catch((err) => {
+      if (job.cancelled) return;
+      console.error('Prefetch summary details:', err.message);
+      if (job.detailsPrefetch) {
+        job.detailsPrefetch.running = false;
+        job.detailsPrefetch.error = err.message;
+      }
+    });
+  }
+}
+
+function skipPrefetchOnServerless(job) {
+  job.detailsCache = job.detailsCache || {};
+  job.detailsPrefetch = {
+    running: false,
+    done: 0,
+    total: job.summary?.length || 0,
+    skipped: true,
+    reason: 'serverless',
+  };
 }
 
 function findLatestDoneJob() {
@@ -295,6 +341,10 @@ function findLatestDoneJob() {
   return latest;
 }
 
-app.listen(PORT, () => {
-  console.log(`\n✈  SKG Browserless (Skyscanner) → http://localhost:${PORT}\n`);
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`\n✈  SKG Browserless (Skyscanner) → http://localhost:${PORT}\n`);
+  });
+}
+
+module.exports = app;

@@ -41,3 +41,18 @@ npm start
 Το endpoint είναι εσωτερικό του Skyscanner (όχι επίσημο public API). Μπορεί να αλλάξει ή να μπλοκάρει requests στο μέλλον — για προσωπική χρήση.
 
 Τρέχει στην **port 3001** (το scraping app είναι στο 3000).
+
+## Deploy στο Vercel
+
+```bash
+cd browserless
+npx vercel login
+npx vercel --prod --name flightsfromgreece
+```
+
+Project: **flightsfromgreece**
+
+Στο Vercel:
+- Η αναζήτηση τρέχει **συγχρονά** (χωρίς polling jobs)
+- Τα **Playwright** ωράria δεν υποστηρίζονται — κλικ σε πτήση για link Skyscanner
+- `maxDuration`: 300s (Pro) / 60s (Hobby)
