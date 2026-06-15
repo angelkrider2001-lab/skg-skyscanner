@@ -1,6 +1,11 @@
 {
   "name": "flightsfromgreece",
   "version": 2,
+  "build": {
+    "env": {
+      "PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD": "1"
+    }
+  },
   "functions": {
     "api/index.js": {
       "maxDuration": 300,
