@@ -1,0 +1,54 @@
+{
+  "aegean": [
+    { "code": "ATH", "name": "Αθήνα" },
+    { "code": "HER", "name": "Ηράκλειο" },
+    { "code": "CHQ", "name": "Χανιά" },
+    { "code": "LCA", "name": "Λάρνακα" },
+    { "code": "FCO", "name": "Ρώμη" },
+    { "code": "MXP", "name": "Μιλάνο" },
+    { "code": "FRA", "name": "Φρανκφούρτη" },
+    { "code": "MUC", "name": "Μόναχο" },
+    { "code": "DUS", "name": "Ντüsseldorf" },
+    { "code": "CDG", "name": "Παρίσι" },
+    { "code": "LHR", "name": "Λονδίνο" },
+    { "code": "VIE", "name": "Βιέννη" },
+    { "code": "PRG", "name": "Πράγα" },
+    { "code": "IST", "name": "Κωνσταντινούπολη" },
+    { "code": "BEG", "name": "Βελιγράδι" }
+  ],
+  "ryanair": [],
+  "skyexpress": [
+    { "code": "ATH", "name": "Αθήνα" },
+    { "code": "HER", "name": "Ηράκλειο" },
+    { "code": "CHQ", "name": "Χανιά" },
+    { "code": "JMK", "name": "Μύκονος" },
+    { "code": "JTR", "name": "Σαντορίνη" },
+    { "code": "JNX", "name": "Νάξος" },
+    { "code": "JSI", "name": "Σκιάθος" },
+    { "code": "KVA", "name": "Καβάλα" },
+    { "code": "KZI", "name": "Κοζάνη" },
+    { "code": "LXS", "name": "Λήμνος" },
+    { "code": "MJT", "name": "Μυτιλήνη" },
+    { "code": "PVK", "name": "Πρέβεζα" }
+  ],
+  "eurowings": [
+    { "code": "DUS", "name": "Ντüsseldorf" },
+    { "code": "CGN", "name": "Κολωνία" },
+    { "code": "STR", "name": "Στουτγάρδη" },
+    { "code": "HAM", "name": "Αμβούργο" },
+    { "code": "MUC", "name": "Μόναχο" },
+    { "code": "VIE", "name": "Βιέννη" },
+    { "code": "ZRH", "name": "Ζυρίχη" },
+    { "code": "LHR", "name": "Λονδίνο" }
+  ],
+  "easyjet": [
+    { "code": "LGW", "name": "Λονδίνο Gatwick" },
+    { "code": "LTN", "name": "Λονδίνο Luton" },
+    { "code": "MAN", "name": "Μάντσεστερ" },
+    { "code": "BER", "name": "Βερολίνο" },
+    { "code": "MXP", "name": "Μιλάνο" },
+    { "code": "CDG", "name": "Παρίσι" },
+    { "code": "GVA", "name": "Γενεύη" },
+    { "code": "BSL", "name": "Βασιλεία" }
+  ]
+}

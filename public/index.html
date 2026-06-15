@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SKG Scraper | Φθηνές Πτήσεις</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="page">
+    <header class="hero">
+      <p class="eyebrow">SKG · Airline Scraping</p>
+      <h1>Φθηνές πτήσεις από <em>Θεσσαλονίκη</em></h1>
+      <p class="subtitle">
+        Scraping από τις 5 μεγαλύτερες εταιρείες SKG:
+        <strong>Aegean</strong>, <strong>Ryanair</strong>, <strong>Sky Express</strong>,
+        <strong>Eurowings</strong>, <strong>easyJet</strong>.
+        Για κάθε εβδομάδα: <strong>Πέμ–Κυρ</strong>, <strong>Παρ–Δευ</strong>, <strong>Σάβ–Τρί</strong>.
+      </p>
+      <div class="airline-badges">
+        <span class="badge aegean">Aegean</span>
+        <span class="badge ryanair">Ryanair</span>
+        <span class="badge skyexpress">Sky Express</span>
+        <span class="badge eurowings">Eurowings</span>
+        <span class="badge easyjet">easyJet</span>
+      </div>
+    </header>
+
+    <section class="controls card">
+      <div class="control-row">
+        <label for="monthSelect">Μήνας scrape</label>
+        <select id="monthSelect"></select>
+      </div>
+      <div class="control-actions">
+        <button id="scrapeBtn" class="btn-primary">Έναρξη Scrape</button>
+        <button id="previewBtn" class="btn-ghost">Προεπισκόπηση ημερομηνιών</button>
+      </div>
+      <p id="statusText" class="status-text"></p>
+      <div id="progressBar" class="progress hidden">
+        <div id="progressFill" class="progress-fill"></div>
+      </div>
+    </section>
+
+    <section id="windowsPreview" class="card hidden">
+      <h2>Ημερομηνίες αναζήτησης</h2>
+      <div id="windowsList" class="windows-grid"></div>
+    </section>
+
+    <section id="resultsSection" class="results hidden">
+      <h2>Αποτελέσματα Scrape</h2>
+      <div id="resultsContainer"></div>
+    </section>
+
+    <footer class="footer">
+      <p>Τοπικό scraping · Aegean · Ryanair · Sky Express · Eurowings · easyJet</p>
+    </footer>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

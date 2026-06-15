@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SKG → Παντού | Skyscanner Browserless</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="page">
+    <header class="hero">
+      <p class="eyebrow">Browserless · Skyscanner Direct</p>
+      <h1>Θεσσαλονίκη → <em>παντού</em></h1>
+      <p class="subtitle">
+        Χωρίς browser, χωρίς API key — κατευθείαν HTTP στο
+        <strong>Skyscanner</strong> (<code>web-unified-search</code>).
+        Για κάθε εβδομάδα: <strong>Πέμ–Κυρ</strong>, <strong>Παρ–Δευ</strong>, <strong>Σάβ–Τρί</strong>.
+        Top 10 φθηνότεροι προορισμοί · μόνο <strong>μελλοντικές</strong> ημερομηνίες.
+      </p>
+      <div class="tag-row">
+        <span class="tag">everywhere search</span>
+        <span class="tag">HTTP μόνο</span>
+        <span class="tag">χωρίς RapidAPI</span>
+      </div>
+    </header>
+
+    <section class="controls card">
+      <div class="control-row">
+        <label for="monthSelect">Μήνας αναζήτησης</label>
+        <select id="monthSelect"></select>
+      </div>
+      <div class="control-actions">
+        <button id="searchBtn" class="btn-primary">Αναζήτηση προς παντού</button>
+        <button id="previewBtn" class="btn-ghost">Προεπισκόπηση ημερομηνιών</button>
+        <button id="resetBtn" class="btn-ghost btn-danger" type="button">Reset</button>
+      </div>
+      <p id="statusText" class="status-text"></p>
+      <div id="progressBar" class="progress hidden">
+        <div id="progressFill" class="progress-fill"></div>
+      </div>
+    </section>
+
+    <section id="windowsPreview" class="card hidden">
+      <h2>Ημερομηνίες αναζήτησης</h2>
+      <div id="windowsList" class="windows-grid"></div>
+    </section>
+
+    <section id="resultsSection" class="results hidden">
+      <h2>Αποτελέσματα</h2>
+      <div id="resultsContainer"></div>
+    </section>
+
+    <footer class="footer">
+      <p>Browserless HTTP → skyscanner.net/g/radar/api/v2/web-unified-search</p>
+    </footer>
+  </div>
+
+  <div id="flightModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-panel" role="dialog" aria-labelledby="modalTitle">
+      <button type="button" class="modal-close" data-close-modal aria-label="Κλείσιμο">&times;</button>
+      <div id="flightModalContent"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
